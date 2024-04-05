@@ -8,8 +8,11 @@ npx create-next-app@latest
 sudo systemctl restart APItektonhome.service
 bash stop-nextjs.sh
 
-## Developement (pay attention to ports)
-npm run dev
+## FOR Developement (pay attention to ports)
+# in nextJs folder
+npm run dev 
+# activate python env for dev in venv folder
+source bin/activate
 uvicorn app_dev:app --reload --host 0.0.0.0 --port 8001
 
 ## Run FastAPI independently
