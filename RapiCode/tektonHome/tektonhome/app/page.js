@@ -7,7 +7,7 @@ export default function Home() {
 
   const handleSubmit = async (event, buttonValue) => {
     event.preventDefault();
-    const response = await fetch('http://192.168.0.234:8001/run-script/', {
+    const response = await fetch('http://192.168.0.234:8000/run-script/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
