@@ -1,4 +1,6 @@
 "use client"; // This is a client component
+import BoardDescription from '../components/BoardDescription';
+
 
 import { useState } from 'react';
 
@@ -25,12 +27,9 @@ export default function Home() {
   return (
     <div>
       <h1>Web Control Panel</h1>
-      <form>
-        <button onClick={(e) => handleSubmit(e, 'turnOn')}>Turn On</button>
-        <button onClick={(e) => handleSubmit(e, 'turnOff')}>Turn Off</button>
-        <input type="text" value={RGBvalues} onChange={(e) => setRGBValues(e.target.value)} placeholder="Enter RGB values" />
-        <button onClick={(e) => handleSubmit(e, 'changeColor')}>Change Color</button>
-      </form>
+            <h2>Board Functions</h2>
+            <BoardDescription BoardId={1} />
     </div>
+
   );
 }
