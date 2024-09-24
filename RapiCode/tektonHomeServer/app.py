@@ -22,12 +22,27 @@ database = {}
 
 @app.post("/Boards/", status_code=status.HTTP_201_CREATED)
 def create_Board(Board: Board, request: Request):
+
     if Board.id in database:
         raise HTTPException(status_code=400, detail="Board already exists")
+
     database[Board.id] = Board
     database[Board.id].client_ip = request.client.host
 
     return {"message": "Board created successfully", "Board": Board}
+
+@app.get("/Boards/check")
+def checkBoards():
+    if not database:
+        raise HTTPException(status_code=404, detail="Database Empty")
+    else:
+        boardList = [] 
+        for board in database:
+            print (board)
+            boardList.append(board)
+
+        # boardIds = [ database['id'] for board in database ]
+        return {"message": "total Board number: " + str(len(database)), "num" : boardList}
 
 @app.get("/Boards/{Board_id}")
 def read_Board(Board_id: int):
@@ -35,7 +50,6 @@ def read_Board(Board_id: int):
         raise HTTPException(status_code=404, detail="Board not found")
     loaded_board = database[Board_id] 
     return {"message": "Board Loaded " + loaded_board.name , "Board": loaded_board.description}
-    # return database[Board_id].description
 
 @app.get("/Boards/{Board_id}/description")
 def read_Board(Board_id: int):
@@ -43,8 +57,6 @@ def read_Board(Board_id: int):
         raise HTTPException(status_code=404, detail="Board not found")
     loaded_board = database.get(Board_id) 
     return  loaded_board
-    # return database[Board_id].description
-
 
 @app.put("/Boards/{Board_id}")
 def update_Board(Board_id: int, Board: Board):
@@ -58,7 +70,7 @@ def delete_Board(Board_id: int):
     if Board_id not in database:
         raise HTTPException(status_code=404, detail="Board not found")
     del database[Board_id]
-    return {"detail": "Board deleted"}
+    return {"message": "Board deleted"}
 
 # Enable CORS for the Next.js frontend
 app.add_middleware(

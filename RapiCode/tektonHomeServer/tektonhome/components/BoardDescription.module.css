@@ -1,0 +1,51 @@
+/* components/BoardTab.module.css */
+
+.boardTab {
+    border: 1px solid #e0e0e0; /* Subtle border */
+    background-color:#89a4bb;
+    border-radius: 8px; /* Rounded corners */
+    margin-bottom: 10px; /* Spacing between tabs */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    overflow: hidden; /* Prevent content overflow */
+  }
+  
+  .tabHeader {
+    background-color: #efefef; /* Light background */
+    padding: 10px 15px;
+    font-weight: bold;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .tabModule{
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 5px;
+    color: #efefef;
+
+  }
+
+  .tabContent {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+
+  }
+  
+  .tabFooter {
+    padding: 10px;
+    text-align: right;
+  }
+  
+  .tabFooter button {
+    background-color: #dc3545; /* Red color for delete button */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .boardTabsContainer {
+    display: flex;
+    flex-direction: column; /* Arrange tabs vertically */
+  }

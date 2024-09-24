@@ -1,35 +1,52 @@
 "use client"; // This is a client component
 import BoardDescription from '../components/BoardDescription';
+import containerStyles from '../components/BoardDescription.module.css';
 
-
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Home() {
-  const [RGBvalues, setRGBValues] = useState('');
+  const [error, setError] = useState('');
+  const [board_num, setBoardnum] = useState(null);
 
-  const handleSubmit = async (event, buttonValue) => {
-    event.preventDefault();
-    const response = await fetch('http://192.168.0.234:8000/run-script/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams({
-        button: buttonValue,
-        RGBvalues,
-      }),
-    });
+  useEffect(() => {
+    async function checkBoards() {
 
-    const data = await response.json();
-    alert(data.message);  // Simple way to show the response
-  };
+        try {
+                const responseCheck = await fetch(`http://192.168.0.234:8000/Boards/check`);
+                if(!responseCheck.ok){
+                  throw new Error('Database Empty, create Board on the Client Board webapp');
+                }
+                const num = await responseCheck.json();
+                setBoardnum(num)
+
+        } catch (err) {
+            setError(err.message);
+
+        }
+    }
+    
+    checkBoards();
+}, []);
 
   return (
-    <div>
-      <h1>Web Control Panel</h1>
-            <h2>Board Functions</h2>
-            <BoardDescription BoardId={1} />
+    <div id='top' className='dark app'>
+        <h1 className= 'stickyTop'>Web Control Panel</h1>
+        <h2>Boards</h2>
+    
+    {board_num ? (
+      <div>
+        <div className={containerStyles.boardTabsContainer}> 
+        {Object.values(board_num.num).map((boardId) => (
+              <BoardDescription key={boardId} BoardId={boardId} /> 
+            ))}
+        </div>
     </div>
+
+
+
+    ): <p> No Boards available. Add a board client in their Webapp </p>}
+    </div>
+
 
   );
 }
