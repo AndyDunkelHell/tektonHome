@@ -41,3 +41,6 @@ uvicorn app:app --host 0.0.0.0 --port 8000
 # TO DO: 
 - change tab title and implement logo on tab
 - Update version number
+- Improve README Instructiuons
+- Add  Video and images
+- Make tabs always different colors from a set of colors
