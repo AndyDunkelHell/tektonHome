@@ -22,6 +22,7 @@ in Server and client Pi, to see updates live:
 - source bin/activate
 - sudo systemctl stop APItektonhome.service
 - uvicorn app:app --reload --host 0.0.0.0 --port 8000
+
 when finished: 
 - sudo systemctl start APItektonhome.service
 
