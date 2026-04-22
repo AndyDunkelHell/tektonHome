@@ -350,9 +350,6 @@ curl -X POST http://<pi-ip>:8000/run-function-params/ \
 **Camera already initiated error**
 - `picam2` is a process-level singleton; call `initCam` only once per session. Restart `app.py` to fully reset camera state.
 
-**`ERESOLVE` on npm install (Next.js)**
-- See the Dependabot fix notes — run `npm install next@latest eslint@latest eslint-config-next@latest`
-
 ---
 
 ## License
