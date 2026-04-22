@@ -5,6 +5,7 @@ import numpy as np
 import requests
 import scripts.ESP32Control as strip
 import threading
+import scripts.camSetup as cam
 
 import os
 import sys
@@ -19,7 +20,7 @@ from func_types import Button, Input
 
 
 # Replace with the ESP32's IP address
-esp_ip = 'http://192.168.0.104/'
+esp_ip = 'http://192.168.0.163/'
 
 # picam2 = Picamera2()
 picam2 = None
@@ -33,6 +34,17 @@ live_ = False
 
 Tile_dict = {'tile0': [0, 240, 0, 213], 'tile1': [0, 240, 213, 427], 'tile2': [0, 240, 427, 640], 'tile3': [240, 480, 427, 640], 'tile4': [240, 480, 213, 427], 'tile5': [240, 480, 0, 213]}
 
+
+def create_hsv(color):
+    # Convert the color to HSV
+    color_hsv = cv2.cvtColor(np.uint8([[color]]), cv2.COLOR_BGR2HSV)[0][0]
+    
+    # Extract the hue, saturation, and value components
+    hue = int(color_hsv[0])
+    saturation = int(color_hsv[1])
+    value = int(color_hsv[2])
+    
+    return (hue, saturation, value)
 
 
 def create_rgb(color):
@@ -101,6 +113,7 @@ def loop_sendData():
             current_data += str_x[1:-1] + ","
         strip.startLive_(current_data[:-1])
         # time.sleep((1/60))
+        # print(current_data[:-1])
 
     cv2.waitKey(0)
 
@@ -115,7 +128,27 @@ def sendData(type:Button = None):
 
 def initCam(type:Button = None):
     global picam2
-    picam2 = Picamera2()
-    picam2.start()
-    return 'CAMERA INITIATED!'
+    if picam2 == None:
+        try:
+            picam2 = Picamera2()
+            picam2.start()
+        except:
+            return 'Error by initiating camera, please check connection'
+        else:
+            return 'CAMERA INITIATED! go to Setup Port :7123 to see setup cam preview'
+    else:
+        return 'Camera already initiated. Setup Port :7123'
+
+def checkCam():
+    global picam2
+    if picam2 == None:
+        return False
+    else:
+        return True
+
+def fetchCam():
+    global picam2
+    return picam2
+
+
 

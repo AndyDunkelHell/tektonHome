@@ -15,7 +15,7 @@ from func_types import Button, Input
 
 
 # Replace with the ESP32's IP address
-esp_ip = 'http://192.168.0.104/'
+esp_ip = 'http://192.168.0.163/'
 
 def turn_led_on(type:Button = None):
     response = requests.get(esp_ip + 'on')

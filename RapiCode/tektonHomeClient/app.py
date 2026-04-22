@@ -6,17 +6,19 @@ import importlib
 import load_scripts as board
 import traceback
 
-glob_board_id = 10
+glob_board_id = 1
+glob_board_name = "DunkelHell_4"
 
 app = FastAPI()
 @app.get("/", response_class=HTMLResponse)
 def read_root():
-    return """
+    return f"""
 <head>
     <title>Webapp Control Panel</title>
 </head>
 <body>
     <h1>Control Panel</h1>
+    <h2>Board: {glob_board_name} (ID: {glob_board_id})<h2>
     <form action="/run-script" method="post">
         <button name="button" value="createBoard" type="post">Create Board</button>
         <button name="button" value="deleteBoard" type="post">Delete Board</button>
@@ -60,21 +62,19 @@ async def run_function(moduleName: str = Form(...), functionName: str = Form(...
         return {"message": str(type(e)) + traceback.format_exc()}
         
 
-
-
 @app.post("/run-script/")
 async def run_script(button: str = Form(...), updateName: str = Form(None)):
     global glob_board_id
     args = []
     if button == "createBoard":
-        board.createBoard(glob_board_id, "DunkelHell_4")
+        board.createBoard(glob_board_id, glob_board_name)
         message = 'Create Board executed successfully!'
     elif button == "deleteBoard":
         board.deleteBoard(glob_board_id)
         message = 'Delete Board executed successfully!'
         print('dele')
     elif button == "updateBoard":
-        board.updateBoard(glob_board_id, "DunkelHell_4")
+        board.updateBoard(glob_board_id, glob_board_name)
         message = 'Board and Scripts Updated '
 
     return {"message": message}
