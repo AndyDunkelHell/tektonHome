@@ -78,13 +78,13 @@ pydantic==2.7.0
 pydantic_core==2.18.1
 pyftdi==0.55.0
 pygame==2.1.2
-Pygments==2.14.0
+Pygments
 PyGObject==3.42.2
 pyinotify==0.9.6
-PyJWT==2.6.0
+PyJWT
 pylint==2.16.2
 PyOpenGL==3.1.6
-pyOpenSSL==23.0.0
+pyOpenSSL
 PyQt5==5.15.9
 PyQt5-sip==12.11.1
 pyserial==3.5
@@ -261,4 +261,4 @@ v4l2-python3==0.3.3
 webencodings==0.5.1
 wrapt==1.14.1
 yarl==1.9.4
-zipp==1.0.0
+zipp
